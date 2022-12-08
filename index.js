@@ -77,7 +77,6 @@ let clearClick = () => {
     Calculator.firstNumber = null
     Calculator.secondNumber = null
     Calculator.operator = null
-    console.log(Calculator)
 }
 
 let deleteClick = () => {
@@ -87,7 +86,6 @@ let deleteClick = () => {
     else {
         Calculator.displayValue = Calculator.displayValue.slice(0, -1)
     }
-    console.log(Calculator)
 }
 
 let plusMin = () => {
