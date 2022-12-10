@@ -30,7 +30,7 @@ let divide = (a,b) => {
         return a/b
     }
     else{
-        alert('Come on ! You it is forbidden to divide by zero ! 😡')
+        alert('Come on ! You know it is forbidden to divide by zero ! 😡')
         return
     }
 }
