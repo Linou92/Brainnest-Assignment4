@@ -73,7 +73,7 @@ footer{
 .button:hover {
     -webkit-transform:scale(1.15);
     transform:scale(1.15);
-  }
+}
 
 .clear, .delete, .operator, .decimal, .plusMin {
     background-color: #8ca9e782;

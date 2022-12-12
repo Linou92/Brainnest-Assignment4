@@ -2,7 +2,7 @@ const buttons = document.querySelector('.buttons')
 const display = document.getElementById('display')
 let btns = document.querySelectorAll('button');
 
-const Calculator = {
+const calculator = {
     displayValue: '0',
     firstNumber: null,
     secondNumber: null,
@@ -58,77 +58,77 @@ let operate = (a, b, operator) => {
 }
 
 let updateDisplay = () => {
-    display.textContent = Calculator.displayValue
+    display.textContent = calculator.displayValue
 }
 
 let decimalClick = (dot) => {
-    if(Calculator.secondNumber != null){
-        Calculator.displayValue = '0.'
-        Calculator.secondNumber = null
+    if(calculator.secondNumber != null){
+        calculator.displayValue = '0.'
+        calculator.secondNumber = null
         return
     }
-    if(!Calculator.displayValue.includes(dot)){
-        Calculator.displayValue += dot
+    if(!calculator.displayValue.includes(dot)){
+        calculator.displayValue += dot
     } 
 }
 
 let clearClick = () => {
-    Calculator.displayValue = '0'
-    Calculator.firstNumber = null
-    Calculator.secondNumber = null
-    Calculator.operator = null
+    calculator.displayValue = '0'
+    calculator.firstNumber = null
+    calculator.secondNumber = null
+    calculator.operator = null
 }
 
 let deleteClick = () => {
-    if(Calculator.displayValue.length <=1){
-        Calculator.displayValue = '0'
+    if(calculator.displayValue.length <=1){
+        calculator.displayValue = '0'
     }
     else {
-        Calculator.displayValue = Calculator.displayValue.slice(0, -1)
+        calculator.displayValue = calculator.displayValue.slice(0, -1)
     }
 }
 
 let plusMin = () => {
-    let displayPlusMin = Calculator.displayValue
+    let displayPlusMin = calculator.displayValue
     if(displayPlusMin >= '0'){
         displayPlusMin = ''
         display.textContent = '-' + displayPlusMin 
     }
-    Calculator.displayValue = display.textContent
+    calculator.displayValue = display.textContent
 }
 
 let userInput = (number) => {
-    if(Calculator.secondNumber != null){
-        Calculator.displayValue = number
-        Calculator.secondNumber = null
+    if(calculator.secondNumber != null){
+        calculator.displayValue = number
+        calculator.secondNumber = null
     }
     else{
-        if(Calculator.displayValue === '0'){
-            Calculator.displayValue = number
+        if(calculator.displayValue === '0'){
+            calculator.displayValue = number
         }
         else{
-            Calculator.displayValue += number
+            calculator.displayValue += number
         }
     }
 }
 
 let handleOperator = (operator) => {
-    const input = parseFloat(Calculator.displayValue)
+    const input = parseFloat(calculator.displayValue)
     if(input.toString().length <= 5){
-        if(Calculator.operator && Calculator.secondNumber != null){
-            Calculator.operator = operator
+        if(calculator.operator && calculator.secondNumber != null){
+            calculator.operator = operator
             return
         }
-        if(Calculator.firstNumber === null && !isNaN(input)){
-            Calculator.firstNumber = input
+        if(calculator.firstNumber === null && !isNaN(input)){
+            calculator.firstNumber = input
         }
-        else if(Calculator.operator){
-            const res = operate(Calculator.firstNumber, input, Calculator.operator)
-            Calculator.displayValue = parseFloat(res.toFixed(3))
-            Calculator.firstNumber = parseFloat(res.toFixed(3))
+        else if(calculator.operator){
+            const res = operate(calculator.firstNumber, input, calculator.operator)
+            calculator.displayValue = parseFloat(res.toFixed(3))
+            calculator.firstNumber = parseFloat(res.toFixed(3))
         }
-        Calculator.secondNumber = 0
-        Calculator.operator = operator
+        calculator.secondNumber = 0
+        calculator.operator = operator
     }
     else{
         alert("Sorry numbers of more than 5 digits are not allowed !")
@@ -193,8 +193,15 @@ document.addEventListener("keypress", (event) => {
                 key = key
         }
     }
-    const keyPressed = document.querySelector(`button[value="${key}"]`);
-    if(!keyPressed) return //Secure keyPressed for input errors that are not valid
+    const keyPressed = document.querySelector(`button[value="${key}"]`)
+    if (keyPressed) {
+        document.addEventListener("keyup", function onKeyup() {
+            document.removeEventListener("keyup", onKeyup);
+            keyPressed.style.backgroundColor = "#faaca8c3";
+        }, false);
+        keyPressed.style.backgroundColor = "#4e3e82";
+    }
+    if(!keyPressed)  return  //Secure keyPressed for input errors that are not valid
     keyPressed.click()
-  })
+})
 
